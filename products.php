@@ -3,9 +3,28 @@
 require_once "config/database.php";
 require_once "includes/header.php";
 
-$result = $conn->query(
-    "SELECT * FROM products ORDER BY id DESC"
+$search = $_GET['search'] ?? '';
+
+$stmt = $conn->prepare(
+    "SELECT * FROM products
+     WHERE product_name LIKE ?
+     OR category LIKE ?
+     OR supplier LIKE ?
+     ORDER BY id DESC"
 );
+
+$searchTerm = "%" . $search . "%";
+
+$stmt->bind_param(
+    "sss",
+    $searchTerm,
+    $searchTerm,
+    $searchTerm
+);
+
+$stmt->execute();
+
+$result = $stmt->get_result();
 
 ?>
 
