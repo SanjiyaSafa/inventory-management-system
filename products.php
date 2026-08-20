@@ -12,6 +12,7 @@ $stmt = $conn->prepare(
      OR supplier LIKE ?
      ORDER BY id DESC"
 );
+
 $searchTerm = "%" . $search . "%";
 
 $stmt->bind_param(
@@ -118,20 +119,25 @@ $result = $stmt->get_result();
 
             <td>
 
-                <?php if ($product['quantity'] <= $product['minimum_stock']): ?>
+               <?php if ($product['quantity'] <= 0): ?>
 
-                    <span class="badge danger">
-                        Low Stock
-                    </span>
+    <span class="badge danger">
+        Out of Stock
+    </span>
 
-                <?php else: ?>
+<?php elseif ($product['quantity'] <= $product['minimum_stock']): ?>
 
-                    <span class="badge success">
-                        Available
-                    </span>
+    <span class="badge danger">
+        Low Stock
+    </span>
 
-                <?php endif; ?>
+<?php else: ?>
 
+    <span class="badge success">
+        Available
+    </span>
+
+<?php endif; ?>
             </td>
 
             <td>
