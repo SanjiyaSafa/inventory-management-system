@@ -37,7 +37,28 @@ $result = $stmt->get_result();
     </a>
 
 </div>
+<div class="search-container">
 
+    <form method="GET" action="products.php">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search product, category or supplier..."
+            value="<?php echo htmlspecialchars($search); ?>"
+        >
+
+        <button type="submit" class="btn">
+            Search
+        </button>
+
+        <a href="products.php" class="btn">
+            Clear
+        </a>
+
+    </form>
+
+</div>
 <div class="table-container">
 
 <table>
