@@ -12,7 +12,6 @@ $stmt = $conn->prepare(
      OR supplier LIKE ?
      ORDER BY id DESC"
 );
-
 $searchTerm = "%" . $search . "%";
 
 $stmt->bind_param(
